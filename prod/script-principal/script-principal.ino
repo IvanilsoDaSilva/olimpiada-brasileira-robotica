@@ -1,26 +1,33 @@
 /*Declaracao das variaveis do PID (Proporcional, Integral, Derivativo)
   O controle PID é um método de controle amplamente utilizado em sistemas dinâmicos para manter uma variável próxima a um valor desejado.
 
-  - setpoint e a velocidade desejada
+  - setpoint e o valor desejado
   - kp e o ganho proporcional
   - ki e o ganho integral
   - kd e o ganho derivativo
+  - proportional
+  - integral soma dos erros  - integral soma dos erros
+  - derivative
+  - error e o erro atual
   - lastError e o ultimo erro
-  - integral soma dos erros
   - pv e a variavel do processo
+  - output e a saida do controle
+  - engineDifference diferença dos motores
+
+  Declarados com "//*" necessitam serem iniciados.
 */         
-int setpoint = 3;
-float kp = 2.0;
-float ki = 0.1;
-float kd = 0.5;
-
-float lastError = 0;
-float integral = 0;
-
-int pv;
-int error;
-float derivative;
-float output;
+double setpoint = 255; //*
+double kp = 2.0; //*
+double ki = 0.1; //*
+double kd = 0.5; //*
+double proportional;
+double integral = 0; //*
+double derivative;
+double error;
+double lastError = 0; //*
+double pv;
+double output;
+double engineDifference = 0; //*
 
 /*Declaracao das variaveis de estado dos sensores
   Declaração das variaveis que irao armazenar o estado dos sensores durante a execucao.
@@ -31,11 +38,20 @@ float output;
   Os sensores estao declarados na ordem que representa a esquerda para direita,
   ou seja, sensorStatus2 e o sensor mais a direita que o sensor sensorStatus4.
 */                                                                                                                        
-int sensorStatus1 = 0;
-int sensorStatus2 = 0;
-// int sensorStatus3 = 0;
-int sensorStatus4 = 0;
-int sensorStatus5 = 0;
+int sensorValue2;
+int sensorValue4;
+
+/*Declaracao das variaveis de estado dos sensores
+  Declaração das variaveis que irao armazenar a velocidade dos motores durante a execucao.
+
+  - 255 significa que o motor esta em sua maxima velocidade
+  - 0 significa que o motor esta em sua minima velocidade
+
+  Os motores estao declarados na ordem que representa a esquerda para direita,
+  ou seja, engine1Velocity e o motor mais a direita que o motor engine2Velocity.
+*/    
+int engine1Velocity;
+int engine2Velocity;
 
 /*Definicao das portas dos sensores
   Definição das portas utilizadas pelos sensores no arduino.
@@ -45,11 +61,8 @@ int sensorStatus5 = 0;
   Os sensores estao definidos na ordem que representa a esquerda para direita,
   ou seja, sensor2 e o sensor mais a direita que o sensor sensor4.
 */           
-#define sensor1 2
 #define sensor2 3
-// #define sensor3 4
 #define sensor4 5
-#define sensor5 6
 
 /*Definicao das portas dos motores
   Definição das portas utilizadas pelos motores no arduino.
@@ -60,50 +73,67 @@ int sensorStatus5 = 0;
   ou seja, sensor2 e o sensor mais a direita que o sensor sensor4.
 */           
 #define engine1 7
-// #define pinMOT1 8
 #define engine2 9
-// #define pinMOT2 10
 
 void setup() {
   /*Configuracao dos pinos e seus repectivos modos*/
-  // pinMode (sensor1,INPUT);
   pinMode (sensor2,INPUT);
-  // pinMode (sensor3,INPUT);
   pinMode (sensor4,INPUT);
-  // pinMode (sensor5,INPUT);
   pinMode (engine1, OUTPUT);
-  // pinMode (pinMOT1 ,OUTPUT);
   pinMode (engine2 ,OUTPUT);
-  // pinMode (pinMOT2 ,OUTPUT);
   
   /*Output inicial dos motores*/
   digitalWrite(engine1, LOW);
-  // digitalWrite(pinMOT1, LOW);
   digitalWrite(engine2, LOW);
-  // digitalWrite(pinMOT2, LOW);
 }
 
 void loop() {
-  /*Valor digital, menos preciso*/
-  sensorStatus1 = digitalRead(sensor1);
-  sensorStatus2 = digitalRead(sensor2);
-  sensorStatus4 = digitalRead(sensor4);
-  sensorStatus5 = digitalRead(sensor5);
+  /*Leitura no console*/
+  Serial.println("\nInicio do relatorio***********************");
+  Serial.println("Valor desejado: "+(String)setpoint);
+  Serial.println("Ganho proporcional: "+(String)kp);
+  Serial.println("Ganho integral: "+(String)ki);
+  Serial.println("Ganho derivativo: "+(String)kd);
+  Serial.println("Valor proporcional: "+(String)proportional);
+  Serial.println("Valor integral: "+(String)integral);
+  Serial.println("Valor derivativo: "+(String)derivative);
+  Serial.println("Valor do erro: "+(String)error);
+  Serial.println("Valor do ultimo erro: "+(String)lastError);
+  Serial.println("Valor da variavel do processo: "+(String)pv);
+  Serial.println("Valor da saida: "+(String)output);
+  Serial.println("Valor do sensor2: "+(String)sensorValue2);
+  Serial.println("Valor da sensor4: "+(String)sensorValue4);
+  Serial.println("Valor da velocidade do motor1: "+(String)engine1Velocity);
+  Serial.println("Valor da velocidade do motor2: "+(String)engine2Velocity);
+  Serial.println("\nFim do relatorio**************************");
 
-  /*Para testar com valor analogico (Mais precisao)*/
-  // sensorStatus2 = analogRead(sensor2);
-  // sensorStatus4 = analogRead(sensor4);
+  /*Leitura dos sensores*/
+  sensorValue2 = analogRead(sensor2);
+  sensorValue4 = analogRead(sensor4);
 
-  /*Calculos do PID*/
-  pv = sensorStatus1 + sensorStatus2 + sensorStatus4 + sensorStatus5;
-  error = setpoint - pv;
-  integral += error;
-  derivative = error - lastError;
-  output = kp * error + ki * integral + kd * derivative;
-  lastError = error;
+  /*Cálculo da variavel do processo*/
+  pv = sensorValue2 + sensorValue4;
+
+  /*Cálculo do erro*/
+  error = setpoint - ((pv) / 2.0);
+
+  /*Cálculo do termo proporcional*/
+  proportional = kp * error;
+
+  /*Cálculo do termo integral*/
+  integral += ki * error;
+
+  /*Cálculo do termo derivativo*/
+  derivative = kd * (error - lastError);
+  
+  /*Cálculo da saída do PID*/
+  output = proportional + integral + derivative;
 
   /*Ajuste da velocidade dos motores com base no controle PID*/
-  analogWrite(engine1, constrain(output, 0, 255));
-  analogWrite(engine2, constrain(output, 0, 255));
-  // delay(100);  // Ajuste conforme necessário
+  engine1Velocity = constrain(255 - output - engineDifference, 0, 255);
+  engine2Velocity = constrain(255 + output, 0, 255);
+
+  /*Controle dos motores*/
+  analogWrite(engine1, engine1Velocity);
+  analogWrite(engine2, engine2Velocity);
 }

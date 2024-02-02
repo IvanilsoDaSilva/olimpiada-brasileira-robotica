@@ -1,14 +1,14 @@
 /*Declaracao das variaveis de estado dos sensores
   Declaração das variaveis que irao armazenar o estado dos sensores durante a execucao.
 
-  - 0 significa que o sensor esta vendo a cor branca ou proximo a mesma
-  - 1 significa que o sensor esta vendo a cor preta ou proximo a mesma
+  - 0 significa que o sensor esta vendo a cor preta ou proximo a mesma
+  - 1 significa que o sensor esta vendo a cor branca ou proximo a mesma
 
   Os sensores estao declarados na ordem que representa a esquerda para direita,
-  ou seja, sensorStatus2 e o sensor mais a direita que o sensor sensorStatus4.
+  ou seja, sensorValue2 e o sensor mais a direita que o sensor sensorValue4.
 */                                                                                                                        
-int sensorStatus2 = 0;
-int sensorStatus4 = 0;
+int sensorValue2 = 0;
+int sensorValue4 = 0;
 
 /*Definicao das portas dos sensores
   Definição das portas utilizadas pelos sensores no arduino.
@@ -29,49 +29,47 @@ int sensorStatus4 = 0;
   Os motores estao definidos na ordem que representa a esquerda para direita,
   ou seja, sensor2 e o sensor mais a direita que o sensor sensor4.
 */           
-#define engine1 7
-// #define pinMOT1 8
-#define engine2 9
-// #define pinMOT2 10
+#define engine1front 7
+#define engine1back 8
+#define engine2front 9
+#define engine2brack 10
 
 void setup() {
   /*Configuracao dos pinos e seus repectivos modos*/
   pinMode (sensor2,INPUT);
   pinMode (sensor4,INPUT);
-  pinMode (engine1, OUTPUT);
-  // pinMode (pinMOT1 ,OUTPUT);
-  pinMode (engine2 ,OUTPUT);
-  // pinMode (pinMOT2 ,OUTPUT);
-  
+  pinMode (engine1front, OUTPUT);
+  pinMode (engine2front ,OUTPUT);
+
   /*Output inicial dos motores*/
-  digitalWrite(engine1, LOW);
-  // digitalWrite(pinMOT1, LOW);
-  digitalWrite(engine2, LOW);
-  // digitalWrite(pinMOT2, LOW);
+  digitalWrite(engine1front, LOW);
+  // digitalWrite(engine1brack, LOW);
+  digitalWrite(engine2front, LOW);
+  // digitalWrite(engine2back, LOW);
 }
 
 void loop() {
   /*Atualização do estado dos sensores
     Atualiza o estado dos sensores para a tomada das decisoes posteriores durante o loop atual
   */
-  sensorStatus2 = digitalRead(sensor2);
-  sensorStatus4 = digitalRead(sensor4);
+  sensorValue2 = digitalRead(sensor2);
+  sensorValue4 = digitalRead(sensor4);
 
-  Serial.println(sensorStatus2);
-  Serial.println(sensorStatus4);
+  Serial.println(sensorValue2);
+  Serial.println(sensorValue4);
   Serial.println();
 
   /*Teste de uso dos motores e sensores
     Código simples para testar a interação entre os sensores e os motores
   */
-  if (sensorStatus2 == 0){
-    digitalWrite(engine1, LOW);
-    digitalWrite(engine2, HIGH);
-  } else if (sensorStatus4 == 0){
-    digitalWrite(engine1, HIGH);
-    digitalWrite(engine2, LOW);
+  if (sensorValue2 == 0){
+    digitalWrite(engine1front, LOW);
+    digitalWrite(engine2front, HIGH);
+  } else if (sensorValue4 == 0){
+    digitalWrite(engine1front, HIGH);
+    digitalWrite(engine2front, LOW);
   } else {
-    digitalWrite(engine1, HIGH);
-    digitalWrite(engine2, HIGH);
+    digitalWrite(engine1front, HIGH);
+    digitalWrite(engine2front, HIGH);
   }
 }
