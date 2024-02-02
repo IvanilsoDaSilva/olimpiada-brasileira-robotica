@@ -15,11 +15,11 @@
 
 <h2 align="right">1.1. INTRODUCTION 📰</h2>
 
-Bem-vindo ao nosso repositório dedicado à participação na Olimpíada Brasileira de Robótica (OBR)! Aqui, você encontrará todos os códigos-fonte em Arduino desenvolvidos para enfrentar os desafios propostos pela competição.
+Bem-vindo ao repositório dedicado à participação na Olimpíada Brasileira de Robótica (OBR)! Aqui, você encontrará todos os códigos-fonte em Arduino desenvolvidos para enfrentar os desafios propostos pela competição.
 
 <h2 align="right">1.2. DESCRIPTION 📝</h2>
 
-Aqui, você encontrará soluções, estratégias e implementações específicas para os desafios propostos pela competição.
+Aqui, você encontrará soluções, estratégias e implementações específicas para os desafios propostos pela competição, como por exemplo o controlador PID.
 
 <h2 align="right">1.3. TECHNOLOGIES 💻</h2>
 
