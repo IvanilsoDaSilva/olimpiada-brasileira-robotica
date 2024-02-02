@@ -34,7 +34,7 @@ Aqui, você encontrará soluções, estratégias e implementações específicas
   ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=FFFFFF&color=FF00FF)&nbsp;
   
   <!-- softwares -->
-  ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
+  ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=FFFFFF&color=FF00FF)&nbsp;
 
 </div>
 
