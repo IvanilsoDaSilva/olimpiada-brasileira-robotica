@@ -6,7 +6,7 @@
   - ki e o ganho integral
   - kd e o ganho derivativo
   - proportional
-  - integral soma dos erros  - integral soma dos erros
+  - integral é a soma dos erros
   - derivative
   - error e o erro atual
   - lastError e o ultimo erro
