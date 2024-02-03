@@ -55,10 +55,6 @@ void loop() {
   sensorValue2 = digitalRead(sensor2);
   sensorValue4 = digitalRead(sensor4);
 
-  Serial.println(sensorValue2);
-  Serial.println(sensorValue4);
-  Serial.println();
-
   /*Teste de uso dos motores e sensores
     Código simples para testar a interação entre os sensores e os motores
   */
