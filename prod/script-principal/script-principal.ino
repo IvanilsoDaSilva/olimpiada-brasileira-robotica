@@ -5,9 +5,9 @@
   - kp e o ganho proporcional
   - ki e o ganho integral
   - kd e o ganho derivativo
-  - proportional
+  - proportional e a saida proprocional ao erro obtido
   - integral é a soma dos erros
-  - derivative
+  - derivative e avariavel que elimina o erro acumulado na integral
   - error e o erro atual
   - lastError e o ultimo erro
   - pv e a variavel do processo
