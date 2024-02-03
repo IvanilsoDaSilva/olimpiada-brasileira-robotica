@@ -50,8 +50,8 @@ int sensorValue4;
   Os motores estao declarados na ordem que representa a esquerda para direita,
   ou seja, engine1Velocity e o motor mais a direita que o motor engine2Velocity.
 */    
-int engine1Velocity;
-int engine2Velocity;
+int engine1Value;
+int engine2Value;
 
 /*Definicao das portas dos sensores
   Definição das portas utilizadas pelos sensores no arduino.
@@ -103,8 +103,8 @@ void loop() {
   Serial.println("Valor da saida: "+(String)output);
   Serial.println("Valor do sensor2: "+(String)sensorValue2);
   Serial.println("Valor da sensor4: "+(String)sensorValue4);
-  Serial.println("Valor da velocidade do motor1: "+(String)engine1Velocity);
-  Serial.println("Valor da velocidade do motor2: "+(String)engine2Velocity);
+  Serial.println("Valor da velocidade do motor1: "+(String)engine1Value);
+  Serial.println("Valor da velocidade do motor2: "+(String)engine2Value);
   Serial.println("\nFim do relatorio**************************");
 
   /*Leitura dos sensores*/
@@ -130,10 +130,10 @@ void loop() {
   output = proportional + integral + derivative;
 
   /*Ajuste da velocidade dos motores com base no controle PID*/
-  engine1Velocity = constrain(255 - output - engineDifference, 0, 255);
-  engine2Velocity = constrain(255 + output, 0, 255);
+  engine1Value = constrain(255 - output - engineDifference, 0, 255);
+  engine2Value = constrain(255 + output, 0, 255);
 
   /*Controle dos motores*/
-  analogWrite(engine1, engine1Velocity);
-  analogWrite(engine2, engine2Velocity);
+  analogWrite(engine1, engine1Value);
+  analogWrite(engine2, engine2Value);
 }
