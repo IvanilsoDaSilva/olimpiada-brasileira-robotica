@@ -18,8 +18,8 @@
 */         
 double setpoint = 255; //*
 double kp = 2.0; //*
-double ki = 0.1; //*
-double kd = 0.5; //*
+double ki = 0.2; //*
+double kd = 0.6; //*
 double proportional;
 double integral = 0; //*
 double derivative;
