@@ -25,16 +25,18 @@ Aqui, você encontrará soluções, estratégias e implementações específicas
 
 <div style="display: inline_block">
   
-  <!-- cloud hosting and databases -->
+  <!-- Cloud hosting and databases -->
   ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=FFFFFF&color=FF00FF)&nbsp; 
   ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=FFFFFF&color=FF00FF)&nbsp;
   
-  <!-- languages -->
+  <!-- Languages -->
   ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=FFFFFF&color=FF00FF)
   ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=FFFFFF&color=FF00FF)&nbsp;
   
-  <!-- softwares -->
+  <!-- Softwares -->
   ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=FFFFFF&color=FF00FF)&nbsp;
+
+  <!-- Others -->
 
 </div>
 
